@@ -1,4 +1,4 @@
-﻿package
+﻿package utils
 {
 	import flash.display.Loader;
 	import flash.events.Event;
@@ -44,17 +44,17 @@
 			var id:String = skillName.split("_")[1];
 			// var num:* = id;
 			// if (num < 10) {
-			// 	num = "0" + id;
+			// num = "0" + id;
 			// }
-			if (parseInt(id) >= 1 && parseInt(id) <= 30) {
-				// Determine the skill icon range based on the skill number
-				var startRange:int = Math.ceil(parseInt(id) / 10) * 10 - 9;
-				var endRange:int = Math.min(Math.ceil(parseInt(id) / 10) * 10, 30);
-				
-				return obj["skill_icon_" + startRange.toString() + "-" + endRange.toString()];
-			} else {
-				return null;
-			}
+			// if (parseInt(id) >= 1 && parseInt(id) <= 30) {
+			// Determine the skill icon range based on the skill number
+			var startRange:int = Math.ceil(parseInt(id) / 10) * 10 - 9;
+			var endRange:int = Math.min(Math.ceil(parseInt(id) / 10) * 10);
+
+			return obj["skill_icon_" + startRange.toString() + "-" + endRange.toString()];
+			// } else {
+			// return null;
+			// }
 		}
 
 		public static function initButton(btn:*, func:*, labelTxt:*, vis:Boolean = true):void
@@ -175,19 +175,64 @@
 			}
 		}
 
+		public static function addMouseEvent(obj:*, mouseEvent:*, callback:*):*
+		{
+			obj.addEventListener(mouseEvent, callback);
+		}
+
+		public static function removeMouseEvent(obj:*, mouseEvent:*, callback:*):*
+		{
+			obj.removeEventListener(mouseEvent, callback);
+		}
+
+		public static function hasMouseEvent(obj:*, mouseEvent:*):Boolean
+		{
+			return obj.hasEventListener(mouseEvent);
+		}
+
 		public static function addMouseEventClick(obj:*, callback:*):*
 		{
-			obj.addEventListener(MouseEvent.CLICK, callback);
+			addMouseEvent(obj, MouseEvent.CLICK, callback);
 		}
 
 		public static function removeMouseEventClick(obj:*, callback:*):*
 		{
-			obj.removeEventListener(MouseEvent.CLICK, callback);
+			removeMouseEvent(obj, MouseEvent.CLICK, callback);
 		}
 
 		public static function hasMouseEventClick(obj:*):Boolean
 		{
-			return obj.hasEventListener(MouseEvent.CLICK);
+			return hasMouseEvent(obj, MouseEvent.CLICK);
+		}
+
+		public static function addMouseEventRollOver(obj:*, callback:*):*
+		{
+			addMouseEvent(obj, MouseEvent.ROLL_OVER, callback);
+		}
+
+		public static function removeMouseEventRollOver(obj:*, callback:*):*
+		{
+			removeMouseEvent(obj, MouseEvent.ROLL_OVER, callback);
+		}
+
+		public static function hasMouseEventRollOver(obj:*):Boolean
+		{
+			return hasMouseEvent(obj, MouseEvent.ROLL_OVER);
+		}
+
+		public static function addMouseEventRollOut(obj:*, callback:*):*
+		{
+			addMouseEvent(obj, MouseEvent.ROLL_OUT, callback);
+		}
+
+		public static function removeMouseEventRollOut(obj:*, callback:*):*
+		{
+			removeMouseEvent(obj, MouseEvent.ROLL_OUT, callback);
+		}
+
+		public static function hasMouseEventRollOut(obj:*):Boolean
+		{
+			return hasMouseEvent(obj, MouseEvent.ROLL_OUT);
 		}
 
 		public static function removeChildIfExistAt(obj:*, index:int):*
